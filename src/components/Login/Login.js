@@ -15,8 +15,11 @@ function Login() {
                         <label className='auth__form-label'>E-mail</label>
                         <input className='auth__form-input'
                             type="email"
+                            minLength='5'
+                            maxLength='30'
                             required
                             defaultValue="dlmedovnik@mail.ru"
+                            placeholder='Введите ваш e-mail'
                         />
                     </div>
                     <span className='auth__form-error'></span>
@@ -24,7 +27,10 @@ function Login() {
                         <label className='auth__form-label'>Пароль</label>
                         <input className='auth__form-input'
                             type="password"
+                            minLength='8'
+                            maxLength='30'
                             required
+                            placeholder='Введите ваш пароль'
                         />
                     </div>
                     <span className='auth__form-error'>Что-то пошло не так...</span>

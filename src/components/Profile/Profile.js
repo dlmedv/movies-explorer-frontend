@@ -11,6 +11,8 @@ function Profile() {
                             <label className='profile__label'>Имя</label>
                             <input className='profile__input'
                                 type="text"
+                                minLength='2'
+                                maxLength='30'
                                 required
                                 defaultValue="Даниил"
                             />
@@ -20,6 +22,8 @@ function Profile() {
                             <label className='profile__label'>E-mail</label>
                             <input className='profile__input'
                                 type="email"
+                                minLength='5'
+                                maxLength='30'
                                 required
                                 defaultValue="dlmdv@mail.ru"
                             />
