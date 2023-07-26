@@ -81,7 +81,7 @@
     order: -1;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width:500px) {
     .movies-card {
         flex-direction: column-reverse;
         max-height: 232px;
@@ -90,27 +90,31 @@
     }
 
     .movies-card__info {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-areas:
+            "name icon"
+            "time .";
         padding: 0 12px 14px 12px;
-        position: relative;
     }
 
     .movies-card__title {
         order: 2;
+        grid-area: name;
     }
 
     .movies-card__time {
         padding: 8px 0 0 0;
         order: 3;
+        grid-area: time;
     }
 
     .movies-card__button {
-        align-self: flex-end;
         order: 1;
         margin: 0;
-        position: absolute;
         bottom: 40px;
+        grid-area: icon;
+        align-self: center;
+        justify-self: flex-end;
     }
 
     .movies-card__poster {

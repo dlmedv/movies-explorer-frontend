@@ -39,14 +39,14 @@ function Header() {
                     <Link to='/'>
                         <img className='header__logo' src={logo} alt='логотип' />
                     </Link>
-                    <div className='header__info'>
+                    <nav className='header__info'>
                         <Link to='/signup' className=' header__link header__link_sign-up'>
                             Регистрация
                         </Link>
                         <Link to='/signin' className=' header__link header__link_sign-in'>
                             Войти
                         </Link>
-                    </div>
+                    </nav>
                 </header>
             } />
             <Route path='/movies' element={
@@ -54,7 +54,7 @@ function Header() {
                     <Link to='/'>
                         <img className='header__logo' src={logo} alt='логотип' />
                     </Link>
-                    {isDesktop ? (<div className='header__info'>
+                    {isDesktop ? (<nav className='header__info'>
                         <Link to='/movies' className='header__link header__link_gray'>
                             Фильмы
                         </Link>
@@ -65,7 +65,7 @@ function Header() {
                             <p className='header__link header__link_gray'>Аккаунт </p>
                             <div className='header__link-icon'></div>
                         </Link>
-                    </div>) : <MobileHeader />}
+                    </nav>) : <MobileHeader />}
                 </header>
             } />
             <Route path='/saved-movies' element={
@@ -73,7 +73,7 @@ function Header() {
                     <Link to='/'>
                         <img className='header__logo' src={logo} alt='логотип' />
                     </Link>
-                    {isDesktop ? (<div className='header__info'>
+                    {isDesktop ? (<nav className='header__info'>
                         <Link to='/movies' className='header__link header__link_gray'>
                             Фильмы
                         </Link>
@@ -84,7 +84,7 @@ function Header() {
                             <p className='header__link header__link_gray'>Аккаунт </p>
                             <div className='header__link-icon'></div>
                         </Link>
-                    </div>) : <MobileHeader />}
+                    </nav>) : <MobileHeader />}
                 </header>
             } />
             <Route path='/profile' element={
@@ -92,7 +92,7 @@ function Header() {
                     <Link to='/'>
                         <img className='header__logo' src={logo} alt='логотип' />
                     </Link>
-                    {isDesktop ? (<div className='header__info'>
+                    {isDesktop ? (<nav className='header__info'>
                         <Link to='/movies' className='header__link header__link_gray'>
                             Фильмы
                         </Link>
@@ -103,7 +103,7 @@ function Header() {
                             <p className='header__link header__link_gray'>Аккаунт </p>
                             <div className='header__link-icon'></div>
                         </Link>
-                    </div>) : <MobileHeader />}
+                    </nav>) : <MobileHeader />}
                 </header>
             } />
             <Route path='/signin' element={null}/>

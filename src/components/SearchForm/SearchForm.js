@@ -7,8 +7,11 @@ function SearchForm() {
                 <input
                     type="text"
                     placeholder='Фильм'
+                    className='search-form__input'
+                    minLength='2'
+                    maxLength='30'
                     required
-                    className='search-form__input' />
+                />
                 <button
                     type='submite'
                     className='search-form__button'>Найти</button>

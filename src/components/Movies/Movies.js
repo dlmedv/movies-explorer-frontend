@@ -20,8 +20,7 @@ function Movies({ cards }) {
 
   return (
     <>
-      <main>
-        <section className='movies'>
+        <main className='movies'>
           <SearchForm />
           <FilterCheckbox />
           {isLoading ? <Preloader /> : null}
@@ -29,8 +28,7 @@ function Movies({ cards }) {
             cards={cards}
             isSavedMoviesPage={false}
           />
-        </section>
-      </main>
+        </main>
       <Footer />
     </>
   )

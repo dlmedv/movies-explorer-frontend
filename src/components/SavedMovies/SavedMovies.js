@@ -7,16 +7,14 @@ import Footer from '../Footer/Footer';
 function SavedMovies({ cards }) {
     return (
         <>
-            <main>
-                <section className='saved-movies'>
+                <main className='saved-movies'>
                     <SearchForm />
                     <FilterCheckbox />
                     <MoviesCardList
                         cards={cards}
                         isSavedMoviesPage={true}
                     />
-                </section>
-            </main>
+                </main>
             <Footer />
         </>
     )

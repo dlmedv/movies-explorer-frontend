@@ -2,7 +2,7 @@ import './MoviesCard.css';
 
 function MoviesCard({ card, isSavedMoviesPage }) {
     return (
-        <section className='movies-card'>
+        <li className='movies-card'>
             <div className='movies-card__info'>
                 <h2 className='movies-card__title'>{card.nameRU}</h2>
                 <p className='movies-card__time'>
@@ -19,9 +19,9 @@ function MoviesCard({ card, isSavedMoviesPage }) {
                 rel="noreferrer"
                 className='movies-card__link'
             >
-                <img className='movies-card__poster' src={card.image} alt='постер к фильму' />
+                <img className='movies-card__poster' src={card.image} alt='обложка фильма "33 слова о дизайне"' />
             </a>
-        </section>
+        </li>
     )
 }
 

@@ -1,5 +1,4 @@
 import './Portfolio.css';
-import iconPortfolio from '../../images/icon-portfolio.svg';
 
 function Portfolio() {
     return (
@@ -14,7 +13,7 @@ function Portfolio() {
                         rel="noopener noreferrer"
                     >
                         <p className='portfolio__text'>Статичный сайт</p>
-                        <img className='portfolio__icon' src={iconPortfolio} alt='стрелка' />
+                        <div className='portfolio__icon'></div>
                     </a>
                 </li>
                 <li>
@@ -25,7 +24,7 @@ function Portfolio() {
                         rel="noopener noreferrer"
                     >
                         <p className='portfolio__text'>Адаптивный сайт</p>
-                        <img className='portfolio__icon' src={iconPortfolio} alt='стрелка' />
+                        <div className='portfolio__icon'></div>
                     </a>
                 </li>
                 <li>
@@ -36,7 +35,7 @@ function Portfolio() {
                         rel="noopener noreferrer"
                     >
                         <p className='portfolio__text'>Одностраничное приложение</p>
-                        <img className='portfolio__icon' src={iconPortfolio} alt='стрелка' />
+                        <div className='portfolio__icon'></div>
                     </a>
                 </li>
             </ul>

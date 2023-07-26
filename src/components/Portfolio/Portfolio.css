@@ -54,7 +54,12 @@
     margin: 0;
     width: 29px;
     height: 60px;
-    align-self: center;
+    align-self: end;
+    background-image: url(../../images/icon-portfolio.svg);
+    background-repeat: no-repeat;
+    outline: none;
+    border: 0;
+    background-size: contain;
 }
 
 @media screen and (max-width: 768px) {
@@ -102,5 +107,6 @@
     .portfolio__icon {
         width: 18px;
         height: 28px;
+        align-self: center;
     }
 }

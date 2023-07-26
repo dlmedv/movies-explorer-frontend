@@ -12,6 +12,7 @@
     row-gap: 40px;
     margin: 0;
     padding: 0;
+    text-decoration: none;
 }
 
 .movies-list__button {
@@ -45,7 +46,7 @@
     }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width:500px) {
     .movies-list {
         padding: 40px 10px 80px 10px;
         row-gap: 70px;
@@ -53,5 +54,7 @@
 
     .movies-list__wrapper {
         row-gap: 20px;
+        align-self: center;
+        min-width: 300px;
     }
 }
