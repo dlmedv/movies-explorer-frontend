@@ -36,12 +36,11 @@
     justify-content: space-between;
     border-bottom: 1px solid #424242;
     flex-wrap: wrap;
+    transition: border-bottom 0.4s ease-out;
 }
 
-
-.profile__form-row:last-of-type {
-    border-bottom: none;
-    padding: 0;
+.profile__form-row:hover {
+    border-bottom: 1px solid #aaa9a9;
 }
 
 .profile__buttons {
