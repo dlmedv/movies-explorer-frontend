@@ -1,0 +1,10 @@
+.auth__button_margin {
+    margin: 157px 0 0 0;
+}
+
+@media screen and (max-width: 450px) {
+    .auth__button_margin {
+        margin: 245px 0 0 0;
+    }
+
+}

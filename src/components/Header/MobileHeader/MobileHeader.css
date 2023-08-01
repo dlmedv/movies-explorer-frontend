@@ -1,0 +1,85 @@
+.header-mobile {
+  padding: 15px 0 0 0;
+  max-height: 32px;
+}
+
+.header-mobile__button {
+  margin: 0;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.header-mobile__button_open {
+  width: 44px;
+  height: 44px;
+  background-image: url(../../../images/burger.svg);
+  background-position: center;
+}
+
+.header-mobile__button_close {
+  width: 22px;
+  height: 22px;
+  background-size: contain;
+  background-image: url(../../../images/button-close.svg);
+  position: absolute;
+  top: 23px;
+  right: 23px;
+  transition: opacity 0.4s ease-out;
+}
+
+.header-mobile__button_close:hover {
+  opacity: 0.7;
+}
+
+.header-mobile__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.header-mobile__content {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #202020;
+  width: 520px;
+}
+
+.header-mobile__menu {
+  padding: 159px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  row-gap: 28px;
+}
+
+
+@media screen and (max-width: 450px) {
+  .header-mobile__content {
+    width: 320px;
+  }
+
+  .header-mobile__button_close {
+    top: 13.5px;
+    right: 13.5px;
+  }
+
+  .header-mobile__menu {
+    padding: 144px 0 0 0;
+    row-gap: 24px;
+  }
+}
