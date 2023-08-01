@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 function Profile() {
     return (
-        <main className='profile'>
+        <main>
+        <section className='profile'>
             <div className='profile__wrapper'>
                 <h1 className='profile__title'>Привет, Даниил!</h1>
                 <form className='profile__form'>
@@ -33,10 +34,11 @@ function Profile() {
                     <span className="profile__error-text"></span>
                     <div className='profile__buttons'>
                     <button className='profile__button' type='button'>Редактировать</button>
-                    <Link to="/" className='profile__button profile__button_red' type='button'>Выйти из аккаунта</Link>
+                    <Link to="/" className='profile__button profile__button_red'>Выйти из аккаунта</Link>
                 </div>
                 </form>
             </div>
+        </section>
         </main>
     )
 }

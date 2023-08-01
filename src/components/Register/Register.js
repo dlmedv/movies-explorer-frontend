@@ -4,7 +4,8 @@ import logo from '../../images/logo.svg';
 
 function Register() {
     return (
-            <main className='auth'>
+        <main>
+            <section className='auth'>
                 <Link to='/'>
                     <img className='auth__logo' src={logo} alt='логотип' />
                 </Link>
@@ -46,15 +47,15 @@ function Register() {
                         />
                     </div>
                     <span className='auth__form-error'>Что-то пошло не так...</span>
-                    <button className='auth__button' type='submite'>Зарегистрироваться</button>
+                    <button className='auth__button' type='submit'>Зарегистрироваться</button>
                 </form>
                 <div className='auth__question-wrapper'>
                     <p className='auth__question'> Уже зарегистрированы?</p>
                     <Link to='/signin' className='auth__question auth__question_link'>Войти</Link>
                 </div>
 
-            </main>
-        
+            </section>
+        </main>
     )
 }
 

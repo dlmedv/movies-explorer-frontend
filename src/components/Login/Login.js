@@ -4,11 +4,12 @@ import logo from '../../images/logo.svg';
 
 function Login() {
     return (
-        <main className='auth'>
+        <main>
+        <section className='auth'>
             <Link to='/'>
                 <img className='auth__logo' src={logo} alt='логотип' />
             </Link>
-            <h2 className='auth__title'>Рады видеть!</h2>
+            <h1 className='auth__title'>Рады видеть!</h1>
             <form className='auth__form'>
                 <div className='auth__form-wrapper'>
                     <label className='auth__form-label'>E-mail</label>
@@ -34,12 +35,13 @@ function Login() {
                     />
                 </div>
                 <span className='auth__form-error'>Что-то пошло не так...</span>
-                <button className='auth__button auth__button_margin' type='submite'>Войти</button>
+                <button className='auth__button auth__button_margin' type='submit'>Войти</button>
             </form>
             <div className='auth__question-wrapper'>
                 <p className='auth__question'>Ещё не зарегистрированы?</p>
                 <Link to='/signup' className='auth__question auth__question_link'>Регистрация</Link>
             </div>
+        </section>
         </main>
     )
 }

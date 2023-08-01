@@ -2,7 +2,7 @@ import './SearchForm.css';
 
 function SearchForm() {
     return (
-        <section className="search-form">
+        <div className="search-form">
             <form className='search-form__form'>
                 <input
                     type="text"
@@ -13,10 +13,10 @@ function SearchForm() {
                     required
                 />
                 <button
-                    type='submite'
+                    type='submit'
                     className='search-form__button'>Найти</button>
             </form>
-        </section>
+        </div>
     )
 }
 
