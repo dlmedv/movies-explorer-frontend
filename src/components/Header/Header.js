@@ -4,7 +4,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MobileHeader from './MobileHeader/MobileHeader';
 
-function Header() {
+function Header({ loggedIn }) {
     const [isDesktop, setIsDesktop] = useState(true);
 
     function debounce(delayFunction, delay) {
@@ -39,14 +39,25 @@ function Header() {
                     <Link to='/'>
                         <img className='header__logo' src={logo} alt='логотип' />
                     </Link>
-                    <nav className='header__info'>
+                    {loggedIn ? (isDesktop ? (<nav className='header__info'>
+                        <Link to='/movies' className='header__link header__link_gray'>
+                            Фильмы
+                        </Link>
+                        <Link to='/saved-movies' className='header__link header__link_gray'>
+                            Сохраненные фильмы
+                        </Link>
+                        <Link to='/profile' className='header__link-account'>
+                            <p className='header__link header__link_gray'>Аккаунт </p>
+                            <div className='header__link-icon'></div>
+                        </Link>
+                    </nav>) : <MobileHeader />) : <nav className='header__info'>
                         <Link to='/signup' className=' header__link header__link_sign-up'>
                             Регистрация
                         </Link>
                         <Link to='/signin' className=' header__link header__link_sign-in'>
                             Войти
                         </Link>
-                    </nav>
+                    </nav>}
                 </header>
             } />
             <Route path='/movies' element={
@@ -106,8 +117,8 @@ function Header() {
                     </nav>) : <MobileHeader />}
                 </header>
             } />
-            <Route path='/signin' element={null}/>
-            <Route path='/signup' element={null}/>
+            <Route path='/signin' element={null} />
+            <Route path='/signup' element={null} />
         </Routes>
     )
 }

@@ -1,36 +1,133 @@
-import './Movies.css';
+import { useState, useEffect, useCallback } from 'react';
+import { moviesApi } from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
 import SearchForm from '../SearchForm/SearchForm';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
-import { useState, useEffect } from 'react';
+import './Movies.css';
 
-function Movies({ cards }) {
+function Movies() {
+  const [value, setValue] = useState('');
+  const [short, setShort] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingPreloader, setIsLoadingPreloader] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [movies, setMovies] = useState(null);
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const onShortChange = useCallback(() => setShort((oldValue) => !oldValue), []);
+
+  const onSearch = useCallback(() => {
+    if (isLoadingPreloader) {
+      return;
+    }
+    setIsLoadingPreloader(true);
+    moviesApi.getMovies()
+      .then((res) => {
+        const result = res.filter((item) =>
+        (
+          item.nameRU.toLowerCase().includes(value.toLowerCase())
+          || item.nameEN.toLowerCase().includes(value.toLowerCase())
+        )
+        );
+
+        setMovies(result);
+
+        localStorage.setItem(
+          'movies',
+          JSON.stringify({
+            value,
+            short,
+            movies: result,
+          }));
+      })
+      .catch((err) => {
+        setMovies(null);
+        setHasError(true);
+      })
+      .finally(() => setIsLoadingPreloader(false))
+  }, [isLoadingPreloader, value]);
 
   useEffect(() => {
-    // Имитируем загрузку данных в течение 2 секунд
-    setTimeout(() => {
-      setIsLoading(false); // прелоадер в false через 2 секунды
-    }, 2000);
+    try {
+      const storage = JSON.parse(localStorage.getItem('movies'));
+
+      if (storage != undefined && typeof storage === 'object') {
+        if (typeof storage.value === 'string') {
+          setValue(storage.value);
+        }
+
+        setShort(Boolean(storage.short));
+
+        if (Array.isArray(storage.movies)) {
+          setMovies(storage.movies);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
+  useEffect(() => {
+    mainApi.getMovies()
+      .then((response) => {
+        setSavedMovies(response);
+      })
+      .catch((err) => console.log)
+  }, []);
+
+  //сохранение понрав фильмов
+  const handleSavedMovies = (movie) => {
+    mainApi.saveMovies(movie)
+      .then((res) => setSavedMovies([res, ...savedMovies]))
+      .catch((err) => console.log(err))
+  }
+
+  //проверка сохраненных фильмов
+  function handleCheckSaveMovie(movie) {
+    return savedMovies.some((elm) => elm.movieId === movie.id)
+  }
+
+  //удаление понрав фильмов
+  const handleDeleteMovie = (movie) => {
+    const id = savedMovies.find((elm) => elm.movieId === movie.id)._id;
+    mainApi.deleteMovie(id)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((elm) => elm._id !== id))
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <>
-    <main>
+      <main>
         <section className='movies'>
-          <SearchForm />
-          <FilterCheckbox />
-          {isLoading ? <Preloader /> : null}
-          <MoviesCardList
-            cards={cards}
-            isSavedMoviesPage={false}
+          <SearchForm
+            value={value}
+            short={short}
+            onChange={setValue}
+            onShortChange={onShortChange}
+            onSearch={onSearch}
+            checkSaveMovie={handleCheckSaveMovie}
           />
+          {isLoadingPreloader ? <Preloader /> : null}
+          {!isLoadingPreloader && movies ? (
+            <MoviesCardList
+              key={short}
+              movies={movies.filter((movie) => short ? movie.duration <= 40 : true)}
+              isSavedMoviesPage={false}
+              onSaveClick={handleSavedMovies}
+              checkSaveMovie={handleCheckSaveMovie}
+              onDeleteClick={handleDeleteMovie}
+            />
+          ) : null}
+          {hasError ? (
+            <p className='movies__error'>
+              Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p>
+          ) : null}
         </section>
-        </main>
+      </main>
       <Footer />
     </>
   )
