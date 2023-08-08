@@ -6,11 +6,11 @@ export const BEATFILM_URL = {
 };
 
 export const MOVIE_URL = {
-    url: 'http://localhost:3000',
+    url: 'https://api.movies.exp.nomoredomains.work',
     headers: {
         "Content-Type": "application/json",
     }
 };
 
- export const BASE_URL = "http://localhost:3000";
+ export const BASE_URL = "https://api.movies.exp.nomoredomains.work";
  export const patternEmail = '[a-zA-Z0-9_.]+@[a-zA-Z0-9_]+\\.{1,1}[a-z]{2,}';

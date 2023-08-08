@@ -33,17 +33,19 @@ function App() {
       setToken(true);
       return;
     }
-    auth
-      .checkToken(token)
-      .then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          setToken(true);
-          setCurrentUser({ name: res.name, email: res.email, _id: res._id });
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setInitialized(true))
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setToken(true);
+            setCurrentUser({ name: res.name, email: res.email, _id: res._id });
+          }
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setInitialized(true))
+    }
   }, [loggedIn]);
 
   //авторизация
@@ -81,7 +83,8 @@ function App() {
           setRegisterError('На сервере произошла ошибка');
         }
       })
-  }
+  };
+  
   //редактирование профиля
   const profileUser = ({ name, email }) => {
     mainApi.setUserInfo(name, email)
@@ -96,7 +99,7 @@ function App() {
           setProfileError('При обновлении профиля произошла ошибка');
         }
       })
-  }
+  };
 
   //выход из аккаунта
   const logOut = () => {
@@ -112,7 +115,6 @@ function App() {
     setProfileSuccess('');
     setProfileError('');
   }
-
 
   if (!initialized) {
     return null;
