@@ -105,10 +105,9 @@ function Movies() {
 
   //удаление понрав фильмов
   const handleDeleteMovie = (movie) => {
-    const id = savedMovies.find((elm) => elm.movieId === movie.id)._id;
-    mainApi.deleteMovie(id)
+    mainApi.deleteMovie(movie.id)
       .then(() => {
-        setSavedMovies(savedMovies.filter((elm) => elm._id !== id))
+        setSavedMovies(savedMovies.filter((elm) => elm.id !== movie.id))
       })
       .catch((err) => console.log(err));
   }
@@ -129,6 +128,7 @@ function Movies() {
           {isLoadingPreloader ? <Preloader /> : null}
           {!isLoadingPreloader && results ? (
             <MoviesCardList
+              key={results.length}
               movies={results}
               isSavedMoviesPage={false}
               onSaveClick={handleSavedMovies}

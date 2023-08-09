@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ value, short, onChange, onShortChange, onSearch, isEmptyQuerry }) {
+function SearchForm({ value, short, onChange, onShortChange, onSearch }) {
     const [showError, setShowError] = useState(false);
     const onSubmit = (event) => {
         event.preventDefault();

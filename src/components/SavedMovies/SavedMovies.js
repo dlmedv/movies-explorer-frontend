@@ -71,6 +71,7 @@ function SavedMovies() {
           />
           {results ? (
             <MoviesCardList
+              key={results.length}
               movies={results}
               isSavedMoviesPage={true}
               onDeleteClick={handleDeleteMovie}
