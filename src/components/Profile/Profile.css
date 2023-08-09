@@ -71,8 +71,8 @@
     opacity: 0.7;
 }
 
-.profile__button_disabled {
-   opacity: 0.5;
+.profile__button_disabled:disabled {
+    opacity: 0.5;
     cursor: default;
     pointer-events: none;
 }
@@ -117,7 +117,7 @@
 }
 
 .profile__error-text_server {
-   align-self: center;
+    align-self: center;
 }
 
 .profile__error-text_success {

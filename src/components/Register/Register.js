@@ -68,7 +68,6 @@ function Register({ registerUser, registerError, cleaner }) {
                             value={form.email}
                             required
                             pattern={patternEmail}
-                            // defaultValue="dlmedovnik@mail.ru"
                             placeholder='Введите ваш e-mail'
                         />
                     </div>

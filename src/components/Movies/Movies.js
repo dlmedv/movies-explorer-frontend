@@ -14,6 +14,7 @@ function Movies() {
   const [isLoadingPreloader, setIsLoadingPreloader] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [movies, setMovies] = useState(null);
+  const [results, setResults] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
 
   const onShortChange = useCallback(() => setShort((oldValue) => !oldValue), []);
@@ -22,32 +23,45 @@ function Movies() {
     if (isLoadingPreloader) {
       return;
     }
-    setIsLoadingPreloader(true);
-    moviesApi.getMovies()
-      .then((res) => {
-        const result = res.filter((item) =>
-        (
-          item.nameRU.toLowerCase().includes(value.toLowerCase())
-          || item.nameEN.toLowerCase().includes(value.toLowerCase())
-        )
-        );
 
-        setMovies(result);
+    const callback = (items) => {
+      const result = items.filter((item) =>
+      (
+        item.nameRU.toLowerCase().includes(value.toLowerCase())
+        || item.nameEN.toLowerCase().includes(value.toLowerCase())
+      )
+      ).filter((movie) => short ? movie.duration <= 40 : true);
 
-        localStorage.setItem(
-          'movies',
-          JSON.stringify({
-            value,
-            short,
-            movies: result,
-          }));
-      })
-      .catch((err) => {
-        setMovies(null);
-        setHasError(true);
-      })
-      .finally(() => setIsLoadingPreloader(false))
-  }, [isLoadingPreloader, value]);
+      setResults(result);
+
+      localStorage.setItem(
+        'movies',
+        JSON.stringify({
+          value,
+          short,
+          movies: result,
+        }));
+    }
+
+    if (!movies) {
+      setIsLoadingPreloader(true);
+
+      moviesApi.getMovies()
+        .then((res) => {
+          setMovies(res);
+          callback(res);
+        })
+        .catch(() => {
+          setResults(null);
+          setHasError(true);
+        })
+        .finally(() => setIsLoadingPreloader(false))
+    } else {
+      callback(movies);
+    }
+  }, [isLoadingPreloader, value, short, movies]);
+
+
 
   useEffect(() => {
     try {
@@ -61,7 +75,7 @@ function Movies() {
         setShort(Boolean(storage.short));
 
         if (Array.isArray(storage.movies)) {
-          setMovies(storage.movies);
+          setResults(storage.movies);
         }
       }
     } catch (error) {
@@ -110,12 +124,12 @@ function Movies() {
             onShortChange={onShortChange}
             onSearch={onSearch}
             checkSaveMovie={handleCheckSaveMovie}
+
           />
           {isLoadingPreloader ? <Preloader /> : null}
-          {!isLoadingPreloader && movies ? (
+          {!isLoadingPreloader && results ? (
             <MoviesCardList
-              key={short}
-              movies={movies.filter((movie) => short ? movie.duration <= 40 : true)}
+              movies={results}
               isSavedMoviesPage={false}
               onSaveClick={handleSavedMovies}
               checkSaveMovie={handleCheckSaveMovie}

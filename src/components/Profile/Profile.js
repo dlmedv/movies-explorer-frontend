@@ -92,15 +92,18 @@ function Profile({ profileUser, profileError, profileSuccess, logOut, cleaner })
                             {changeButton ?
                                 (<button
                                     disabled={buttonStatus}
-                                    className='profile__button'
+                                    className='profile__button profile__button_disabled'
                                     onClick={handleSubmit}
-                                    type='submit'>Сохранить
+                                    type='submit'>
+                                    Сохранить
                                 </button>)
                                 :
                                 (<button
                                     className='profile__button'
                                     onClick={handleClickEditButton}
-                                    type='button'>Редактировать</button>)}
+                                    type='button'>
+                                    Редактировать
+                                </button>)}
                             <Link to="/"
                                 className='profile__button profile__button_red'
                                 onClick={handleLogOut}

@@ -22,7 +22,13 @@ function checkIsMobile() {
 
 function MoviesCardList({ movies, isSavedMoviesPage, checkSaveMovie, onSaveClick, onDeleteClick }) {
     const [isMobile, setIsMobile] = useState(checkIsMobile);
-    const [visibleCount, setVisibleCount] = useState(Math.min(isMobile ? 5 : 7, movies.length)); // отображение на разной ширине
+    const [visibleCount, setVisibleCount] = useState(() => {
+        if (isSavedMoviesPage) {
+            return movies.length;
+        }
+
+        return Math.min(isMobile ? 5 : 7, movies.length);
+    }); // отображение на разной ширине
 
     useEffect(() => {
         const resize = debounce(() => setIsMobile(checkIsMobile()), 100);

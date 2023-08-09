@@ -21,9 +21,9 @@ function SavedMovies() {
       item.nameRU.toLowerCase().includes(value.toLowerCase())
       || item.nameEN.toLowerCase().includes(value.toLowerCase())
     )
-    );
+    ).filter((movie) => short ? movie.duration <= 40 : true);
     setResults(result);
-  }, [movies, value]);
+  }, [movies, value, short]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -71,8 +71,7 @@ function SavedMovies() {
           />
           {results ? (
             <MoviesCardList
-              key={short}
-              movies={results.filter((movie) => short ? movie.duration <= 40 : true)}
+              movies={results}
               isSavedMoviesPage={true}
               onDeleteClick={handleDeleteMovie}
             />

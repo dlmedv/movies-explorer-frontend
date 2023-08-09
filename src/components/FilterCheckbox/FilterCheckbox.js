@@ -10,7 +10,7 @@ function FilterCheckbox({ toggled, onToggle }) {
             value={toggled}
             onClick={onToggle}
          />
-         <label className='filter-checkbox__text' htmlFor='checkbox__label'>Короткометражки</label>
+         <label className={`filter-checkbox__text ${toggled ? 'filter-checkbox__text_checked' : ''}`} htmlFor='checkbox__label'>Короткометражки</label>
       </div>
    )
 }

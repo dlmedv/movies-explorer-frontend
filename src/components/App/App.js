@@ -84,7 +84,7 @@ function App() {
         }
       })
   };
-  
+
   //редактирование профиля
   const profileUser = ({ name, email }) => {
     mainApi.setUserInfo(name, email)
@@ -139,18 +139,18 @@ function App() {
                 logOut={logOut}
                 cleaner={cleaner}
               />} />
-            <Route path="/signin" element={
+            {!loggedIn && <Route path="/signin" element={
               <Login
                 loginUser={loginUser}
                 loginError={loginError}
                 cleaner={cleaner}
-              />} />
-            <Route path="/signup" element={
+              />} />}
+            {!loggedIn && <Route path="/signup" element={
               <Register
                 registerUser={registerUser}
                 registerError={registerError}
                 cleaner={cleaner}
-              />} />
+              />} />}
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
