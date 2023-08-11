@@ -94,6 +94,6 @@ function SavedMovies() {
       <Footer />
     </>
   )
-}
+};
 
 export default SavedMovies;

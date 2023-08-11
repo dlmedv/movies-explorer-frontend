@@ -76,8 +76,6 @@ function Movies() {
     }
   }, [isLoadingPreloader, value, short, movies]);
 
-
-
   useEffect(() => {
     try {
       const storage = JSON.parse(localStorage.getItem('movies'));
@@ -140,7 +138,6 @@ function Movies() {
             onShortChange={onShortChange}
             onSearch={onSearch}
             checkSaveMovie={handleCheckSaveMovie}
-
           />
           {isLoadingPreloader ? <Preloader /> : null}
           {!isLoadingPreloader && results ? (
