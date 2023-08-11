@@ -17,20 +17,35 @@ function Movies() {
   const [results, setResults] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
 
-  const onShortChange = useCallback(() => setShort((oldValue) => !oldValue), []);
+  const onShortChange = useCallback(() => {
+    setShort((oldShort) => {
+
+      localStorage.setItem(
+        'movies',
+        JSON.stringify({
+          ...JSON.parse(localStorage.getItem('movies')) || {},
+          short: !oldShort,
+        }));
+
+      return !oldShort;
+    });
+  }, []);
 
   const onSearch = useCallback(() => {
     if (isLoadingPreloader) {
       return;
     }
 
-    const callback = (items) => {
-      const result = items.filter((item) =>
-      (
-        item.nameRU.toLowerCase().includes(value.toLowerCase())
-        || item.nameEN.toLowerCase().includes(value.toLowerCase())
-      )
-      ).filter((movie) => short ? movie.duration <= 40 : true);
+    const updateResults = (items, value, short) => {
+      if (items === null) {
+        return;
+      }
+
+      const result = items
+        .filter((item) =>
+          item.nameRU.toLowerCase().includes(value.toLowerCase())
+          || item.nameEN.toLowerCase().includes(value.toLowerCase())
+        );
 
       setResults(result);
 
@@ -49,7 +64,7 @@ function Movies() {
       moviesApi.getMovies()
         .then((res) => {
           setMovies(res);
-          callback(res);
+          updateResults(res, value, short);
         })
         .catch(() => {
           setResults(null);
@@ -57,7 +72,7 @@ function Movies() {
         })
         .finally(() => setIsLoadingPreloader(false))
     } else {
-      callback(movies);
+      updateResults(movies, value, short);
     }
   }, [isLoadingPreloader, value, short, movies]);
 
@@ -112,6 +127,8 @@ function Movies() {
       .catch((err) => console.log(err));
   }
 
+  const visibleResults = (results || []).filter((movie) => short ? movie.duration <= 40 : true);
+
   return (
     <>
       <main>
@@ -128,8 +145,8 @@ function Movies() {
           {isLoadingPreloader ? <Preloader /> : null}
           {!isLoadingPreloader && results ? (
             <MoviesCardList
-              key={results.length}
-              movies={results}
+              key={visibleResults.length}
+              movies={visibleResults}
               isSavedMoviesPage={false}
               onSaveClick={handleSavedMovies}
               checkSaveMovie={handleCheckSaveMovie}

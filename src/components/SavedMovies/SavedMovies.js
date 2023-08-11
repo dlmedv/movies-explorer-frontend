@@ -13,16 +13,25 @@ function SavedMovies() {
   const [movies, setMovies] = useState(null);
   const [results, setResults] = useState(null);
 
-  const onShortChange = useCallback(() => setShort((oldValue) => !oldValue), []);
-
-  const onSearch = useCallback(() => {
-    const result = movies.filter((item) =>
+  const updateResults = useCallback((items, value, short) => {
+    const result = items.filter((item) =>
     (
       item.nameRU.toLowerCase().includes(value.toLowerCase())
       || item.nameEN.toLowerCase().includes(value.toLowerCase())
     )
     ).filter((movie) => short ? movie.duration <= 40 : true);
+
     setResults(result);
+  }, [])
+
+  const onShortChange = useCallback(() => {
+    const newShort = !short;
+    updateResults(movies, value, newShort);
+    setShort(newShort);
+  }, [short, value, movies]);
+
+  const onSearch = useCallback(() => {
+    updateResults(movies, value, short);
   }, [movies, value, short]);
 
   useEffect(() => {
