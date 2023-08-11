@@ -118,9 +118,10 @@ function Movies() {
 
   //удаление понрав фильмов
   const handleDeleteMovie = (movie) => {
-    mainApi.deleteMovie(movie.id)
+    const id = savedMovies.find((elm) => elm.movieId === movie.id)._id;
+    mainApi.deleteMovie(id)
       .then(() => {
-        setSavedMovies(savedMovies.filter((elm) => elm.id !== movie.id))
+        setSavedMovies(savedMovies.filter((elm) => elm._id !== id))
       })
       .catch((err) => console.log(err));
   }
