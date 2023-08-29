@@ -1,37 +1,82 @@
+import { useState, useEffect } from 'react';
+
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import poster from '../../images/poster.jpg';
 
-function MoviesCardList({ cards, isSavedMoviesPage }) {
+function debounce(delayFunction, delay) {
+    let timer = null;
 
-    const testCard = {
-        country: "Англия",
-        director: "лучшее",
-        duration: 307,
-        year: "2010",
-        description: "Кино про дизайн",
-        image: poster,
-        trailerLink: "https://youtu.be/JORGN8rUjyQ?t=4",
-        thumbnail: poster,
-        movieId: 12345679,
-        nameRU: "33 слова о дизайне",
-        nameEN: "33 words about design"
+    return (...args) => {
+        if (timer !== null) {
+            clearTimeout(timer);
+        }
 
+        timer = setTimeout(() => delayFunction(...args), delay);
     }
+}
+
+function checkIsMobile() {
+    return window.innerWidth < 768;
+}
+
+
+function MoviesCardList({ movies, isSavedMoviesPage, checkSaveMovie, onSaveClick, onDeleteClick }) {
+    const [isMobile, setIsMobile] = useState(checkIsMobile);
+    const [visibleCount, setVisibleCount] = useState(() => {
+        if (isSavedMoviesPage) {
+            return movies.length;
+        }
+
+        return Math.min(isMobile ? 5 : 7, movies.length);
+    }); // отображение на разной ширине
+
+    useEffect(() => {
+        const resize = debounce(() => setIsMobile(checkIsMobile()), 100);
+
+        window.addEventListener('resize', resize);
+
+        return () => {
+            window.removeEventListener('resize', resize);
+        }
+    }, [])
+
+
+    // отображение ошибок
+    if (!movies.length) {
+        return (
+            <p className='movies-list__error'>Ничего не найдено.</p>
+        )
+    };
 
     return (
         <section className='movies-list'>
             <ul className='movies-list__wrapper'>
-                {cards.map((card, index) => (
+                {movies.slice(0, visibleCount).map((movie) => (
                     <MoviesCard
-                        key={index}
-                        card={testCard}
+                        key={movie._id || movie.id}
+                        movie={movie}
                         isSavedMoviesPage={isSavedMoviesPage}
+                        isSavedMovie={checkSaveMovie}
+                        onSaveClick={onSaveClick}
+                        onDeleteClick={onDeleteClick}
                     />
                 ))
                 }
             </ul>
-            <button className='movies-list__button' type='button'>Еще</button>
+            {visibleCount < movies.length ? (
+                <button
+                    className='movies-list__button'
+                    type='button'
+                    onClick={() => setVisibleCount(
+                        Math.min(
+                            visibleCount + (isMobile ? 5 : 7),
+                            movies.length
+                        ))
+                    }
+                >
+                    Еще
+                </button>
+            ) : null}
         </section>
     )
 }

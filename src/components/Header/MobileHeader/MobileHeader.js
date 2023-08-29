@@ -6,12 +6,12 @@ function MobileHeader() {
   const [opened, setOpened] = useState(false);
 
   function openBurger() {
-    setOpened(true)
-  }
+    setOpened(true);
+  };
 
   function closeBurger() {
-    setOpened(false)
-  }
+    setOpened(false);
+  };
 
   return (
     <div className='header-mobile'>

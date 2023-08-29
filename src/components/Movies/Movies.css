@@ -1,0 +1,29 @@
+.movies {
+    min-height: calc(100vh - 172px - 76px);
+}
+
+.movies__error {
+    text-align: center;
+    padding: 0 70px;
+    margin: 0 auto;
+    color: #EE3465;
+    text-align: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@media screen and (max-width: 768px){
+    .movies__error {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .movies__error {
+        padding: 0 10px;
+    }
+    
+}
